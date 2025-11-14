@@ -15,6 +15,7 @@ class ServerConfig(BaseModel):
     app_name: str = Field(..., description="Application name for log file paths")
     log_paths: Optional[list[str]] = Field(None, description="Custom log file paths (overrides default paths)")
     timeout: int = Field(30, description="SSH connection timeout in seconds")
+    file_age_limit: Optional[int] = Field(None, description="Limit log files to those modified within this many days")
     
     class Config:
         """Pydantic configuration."""

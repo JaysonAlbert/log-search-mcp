@@ -35,6 +35,9 @@ class ConfigManager:
                 # Handle log_paths as list if it's a string (comma-separated)
                 if "log_paths" in server_data and isinstance(server_data["log_paths"], str):
                     server_data["log_paths"] = [path.strip() for path in server_data["log_paths"].split(",")]
+                # Handle file_age_limit if present
+                if "file_age_limit" in server_data and isinstance(server_data["file_age_limit"], str):
+                    server_data["file_age_limit"] = int(server_data["file_age_limit"])
                 servers[server_name] = ServerConfig(name=server_name, **server_data)
             
             # Create main config

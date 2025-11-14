@@ -18,13 +18,14 @@ log_paths = [
     "/var/log/webapp/error.log"
 ]
 
-# 示例服务器配置 - 测试环境  
+# 示例服务器配置 - 测试环境
 [servers.test-api]
 hostname = "test-api.example.com"
 port = 22
 username = "test-user"
 app_name = "api"
 log_paths = "/var/log/api/current.log,/var/log/api/archive/*.log"
+file_age_limit = 7  # 只搜索最近7天有更新的日志文件
 
 # 示例服务器配置 - 数据库服务器
 [servers.database-server]
@@ -33,6 +34,7 @@ port = 22
 username = "db-admin"
 app_name = "database"
 log_paths = "/var/log/postgresql/postgresql-*.log"
+file_age_limit = 1  # 只搜索最近1天有更新的日志文件
 
 # 示例服务器配置 - 应用服务器
 [servers.app-server]
@@ -46,3 +48,4 @@ log_paths = [
     "/opt/app/logs/debug.log",
     "/opt/app/logs/error.log"
 ]
+file_age_limit = 3  # 只搜索最近3天有更新的日志文件
