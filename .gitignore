@@ -1,0 +1,16 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# 配置文件 - 排除真正的配置文件，保留示例文件
+log_search_config.toml
+custom_logs_config.toml
+*.toml
+!example_config.toml

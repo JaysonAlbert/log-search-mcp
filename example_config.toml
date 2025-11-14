@@ -1,0 +1,48 @@
+# 示例配置文件 - 请复制此文件并重命名为实际的配置文件
+# 此文件仅用于演示配置格式，不应包含真实的敏感信息
+
+default_timeout = 30  # 默认超时时间（秒）
+max_results = 100     # 每次搜索的最大结果数
+
+[servers]
+
+# 示例服务器配置 - 生产环境
+[servers.production-web]
+hostname = "your-production-server.com"
+port = 22
+username = "your-username"
+# password = "your-password"  # 如果使用密码认证，请取消注释并设置
+app_name = "webapp"
+log_paths = [
+    "/var/log/webapp/app.log",
+    "/var/log/webapp/error.log"
+]
+
+# 示例服务器配置 - 测试环境  
+[servers.test-api]
+hostname = "test-api.example.com"
+port = 22
+username = "test-user"
+app_name = "api"
+log_paths = "/var/log/api/current.log,/var/log/api/archive/*.log"
+
+# 示例服务器配置 - 数据库服务器
+[servers.database-server]
+hostname = "db.example.com"
+port = 22
+username = "db-admin"
+app_name = "database"
+log_paths = "/var/log/postgresql/postgresql-*.log"
+
+# 示例服务器配置 - 应用服务器
+[servers.app-server]
+hostname = "app.example.com"
+port = 22
+username = "app-user"
+app_name = "application"
+timeout = 60  # 自定义超时时间
+log_paths = [
+    "/opt/app/logs/app.log",
+    "/opt/app/logs/debug.log",
+    "/opt/app/logs/error.log"
+]

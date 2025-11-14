@@ -1,0 +1,1 @@
+"""Tests for the log search MCP server."""

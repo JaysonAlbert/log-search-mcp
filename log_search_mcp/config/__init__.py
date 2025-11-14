@@ -1,0 +1,1 @@
+"""Configuration management for the log search MCP server."""
