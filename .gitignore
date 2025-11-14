@@ -14,3 +14,4 @@ log_search_config.toml
 custom_logs_config.toml
 *.toml
 !example_config.toml
+!pyproject.toml
