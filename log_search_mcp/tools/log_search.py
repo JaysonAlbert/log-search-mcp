@@ -77,10 +77,11 @@ class LogSearchTool:
         
         elif time_range.endswith('d'):
             days = int(time_range[:-1])
+            # Use full timestamp comparison so "1d" means last 24 hours (not only the cutoff date)
             cutoff_time = datetime.now() - timedelta(days=days)
-            cutoff_date = cutoff_time.strftime("%Y-%m-%d")
-            # For day-level filtering, use simpler date matching
-            return f"grep -E '{cutoff_date}'"
+            cutoff_timestamp = cutoff_time.strftime("%Y-%m-%d %H:%M:%S")
+            # Use awk to compare timestamps - match lines with timestamp >= cutoff_time
+            return f"awk 'match($0, /[0-9]{{4}}-[0-9]{{2}}-[0-9]{{2}} [0-9]{{2}}:[0-9]{{2}}:[0-9]{{2}}/) {{ timestamp = substr($0, RSTART, RLENGTH); if (timestamp >= \"{cutoff_timestamp}\") print }}'"
         
         # Absolute time range
         elif ' to ' in time_range:
