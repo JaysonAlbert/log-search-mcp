@@ -21,7 +21,7 @@ dev = [
 ]
 
 [project.scripts]
-log-search-mcp = "main:main"
+log-search-mcp = "log_search_mcp.server:main"
 
 [build-system]
 requires = ["hatchling"]

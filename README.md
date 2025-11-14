@@ -108,27 +108,27 @@ timeout = 30
 
 ### 运行服务器
 
-#### 直接运行 MCP 服务器
+#### 直接运行 MCP 服务器（推荐方式）
 
 ```bash
-# 运行 MCP 服务器
-python main.py
+# 使用 uv 运行 MCP 服务器（推荐）
+uv run --with https://github.com/JaysonAlbert/log-search-mcp.git log-search-mcp --config log_search_config.toml
 
-# 或使用 uv
-uv run log-search-mcp
+# 或使用相对路径（如果当前在项目目录中）
+uv run log-search-mcp --config log_search_config.toml
 
-# 指定配置文件路径
-python main.py --config custom_logs_config.toml
+# 使用 python 运行（备用方式）
+python -m log_search_mcp.server --config log_search_config.toml
 ```
 
 #### 使用 MCP Inspector 调试
 
 ```bash
 # 使用 MCP Inspector 运行服务器（用于调试）
-npx @modelcontextprotocol/inspector uv --directory . run log-search-mcp
+npx @modelcontextprotocol/inspector uv --directory . run log-search-mcp --config log_search_config.toml
 
-# 如果 Inspector 需要传递参数给 MCP 服务器，使用 -- 分隔符
-npx @modelcontextprotocol/inspector uv --directory . run log-search-mcp -- --config ./log_search_config.toml
+# 或使用完整路径
+npx @modelcontextprotocol/inspector uv --directory https://github.com/JaysonAlbert/log-search-mcp.git run log-search-mcp --config log_search_config.toml
 ```
 
 #### 在 Claude Desktop 中配置
@@ -141,12 +141,30 @@ npx @modelcontextprotocol/inspector uv --directory . run log-search-mcp -- --con
     "log-search": {
       "command": "uv",
       "args": [
-        "--directory",
-        "/path/to/log-search-mcp",
+        "--with",
+        "https://github.com/JaysonAlbert/log-search-mcp.git",
         "run",
         "log-search-mcp",
         "--config",
-        "/path/to/log_search_config.toml"
+        "log_search_config.toml"
+      ]
+    }
+  }
+}
+```
+
+或者使用相对路径（如果 Claude Desktop 配置文件和项目在同一目录）：
+
+```json
+{
+  "mcpServers": {
+    "log-search": {
+      "command": "uv",
+      "args": [
+        "run",
+        "log-search-mcp",
+        "--config",
+        "log_search_config.toml"
       ]
     }
   }

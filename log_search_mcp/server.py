@@ -85,7 +85,13 @@ async def read_resource(uri: str) -> str:
     raise ValueError(f"Unknown resource: {uri}")
 
 
-async def main(config_path=None):
+import argparse
+import asyncio
+import sys
+from pathlib import Path
+
+
+async def main_async(config_path=None):
     """Main entry point for the MCP server."""
     # Set up logging
     logging.basicConfig(
@@ -126,5 +132,28 @@ async def main(config_path=None):
         logger.info("Cleanup completed")
 
 
+def main():
+    """Synchronous entry point for the log search MCP server."""
+    parser = argparse.ArgumentParser(description="Log Search MCP Server")
+    parser.add_argument(
+        "--config",
+        "-c",
+        type=Path,
+        default=Path("log_search_config.toml"),
+        help="Path to configuration file (default: log_search_config.toml)"
+    )
+    
+    args = parser.parse_args()
+    
+    try:
+        asyncio.run(main_async(config_path=args.config))
+    except KeyboardInterrupt:
+        print("Server stopped by user", file=sys.stderr)
+        sys.exit(0)
+    except Exception as e:
+        print(f"Server error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
